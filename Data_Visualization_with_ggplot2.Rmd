@@ -188,6 +188,87 @@ ggplot(data = diamonds) +
 
 ggplot2 provides over 20 stats for you to use. Each stat is a function, so you can get help in the usual way, e.g., ?stat_bin. To see a complete list of stats, try the ggplot2 cheatsheet.
 
+### Position Adjustments
+
+You can color a bar chart using either the color aesthetic, or more usefully, fill
+
+```{r,warning=FALSE,message=FALSE}
+## Color is used for borders
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, color = cut))
+
+## fill, fills the color
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut))
+
+## When we use fill to other variable
+
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity))
 
 
+ggplot(
+  data = diamonds,
+  mapping = aes(x = cut, fill = clarity)
+) +
+  geom_bar(alpha = 1/5, position = "identity")
 
+ggplot(
+  data = diamonds,
+  mapping = aes(x = cut, color = clarity)
+) +
+  geom_bar(fill = NA, position = "identity")
+```
+
+* Position = 'identity': will place each object exactly where it falls in the context of the graph. This is not very useful for bars, because it overlaps them.
+
+```{r,warning=FALSE,message=FALSE}
+
+ggplot(
+  data = diamonds,
+  mapping = aes(x = cut, fill = clarity)
+) +
+  geom_bar(alpha = 1/5, position = "identity")
+
+ggplot(
+  data = diamonds,
+  mapping = aes(x = cut, color = clarity)
+) +
+  geom_bar(fill = NA, position = "identity")
+```
+
+* position = "fill" works like stacking, but makes each set of stacked bars the same height. This makes it easier to compare proportions across groups:
+
+```{r,warning=FALSE,message=FALSE}
+
+ggplot(data = diamonds) +
+  geom_bar(
+    mapping = aes(x = cut, fill = clarity),
+    position = "fill"
+  )
+```
+
+* position = "dodge" places overlapping objects directly beside one another. This makes it easier to compare individual values:
+
+```{r,warning=FALSE,message=FALSE}
+
+ggplot(data = diamonds) +
+  geom_bar(
+    mapping = aes(x = cut, fill = clarity),
+    position = "dodge"
+  )
+```
+
+
+### Co-ordinate sytems
+
+* coord_flip() switches the x- and y-axes. 
+
+```{r,warning=FALSE,message=FALSE}
+
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +  geom_boxplot()
+
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +  geom_boxplot() +  coord_flip()
+```
+
+End of Chapter 1
