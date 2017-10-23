@@ -1,0 +1,97 @@
+## Chapter 2: Workflow Basics
+
+* R Can be used as calculator
+* We use "<-" as assignment operator. It is referred as "gets"
+
+## Chapter 3: Data Transformation with dplyr
+
+* filter()
+
+
+```{r,message=FALSE, warning=FALSE}
+library(nycflights13)
+library(tidyverse)
+
+flights %>% filter(month == 1, day == 1)
+
+## Logical
+flights %>% filter(month == 11| month == 12)
+
+## in clause
+flights %>% filter(month %in% c(11,12))
+
+```
+
+* arrange()
+
+```{r,message=FALSE, warning=FALSE}
+
+flights %>% arrange(year, month, day)
+
+```
+
+* select()
+
+```{r,message=FALSE, warning=FALSE}
+
+flights %>% select(year, month, day)
+
+```
+
+* rename()
+
+```{r,message=FALSE, warning=FALSE}
+
+flights %>% rename(tail_num = tailnum)
+
+```
+
+* mutate()
+
+```{r,message=FALSE, warning=FALSE}
+
+flights %>% mutate(hours = air_time/60)
+
+##transmutate will keep only new variables
+
+flights %>% transmute(hours = air_time/60)
+
+```
+
+* offset
+
+lead() and lag() allow you to refer to leading or lagging values. This allows you to compute running differences (e.g., x - lag(x)) or find when values change (x != lag(x)). They are most useful in conjunction with group_by()
+
+```{r,message=FALSE, warning=FALSE}
+
+(x <- 1:10)
+lag(x)
+lead(x)
+
+```
+
+* Cumulative and rolling aggregates
+
+```{r,message=FALSE, warning=FALSE}
+
+cumsum(x)
+cummean(x)
+cummin(x)
+cummax(x)
+
+```
+
+* Ranking
+
+```{r,message=FALSE, warning=FALSE}
+
+y <- c(1, 2, 2, NA, 3, 4)
+min_rank(y)
+min_rank(desc(y))
+
+dense_rank(y)
+```
+
+* Summarize()
+
+
