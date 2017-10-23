@@ -1,0 +1,17 @@
+# Tibbles with tibble
+
+## Creating Tibbles
+
+We can create tibble using as.tibble() function
+
+```{r,warning=FALSE,message=FALSE}
+library(tidyverse)
+as.tibble(iris)
+
+tibble(
+  x = 1:5,
+  y = 1,
+  z = x ^ 2 + y
+)
+```
+
